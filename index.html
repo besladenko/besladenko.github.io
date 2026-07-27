@@ -1,224 +1,90 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Project A.Z.A. - Hunter of Fakes</title>
-    <style>
-        :root {
-            --accent: #FF5252; /* Красный цвет расследования */
-            --bg-dark: #0F1115;
-            --bg-card: #1A1D24;
-            --text-main: #E0E6ED;
-            --text-muted: #94A3B8;
-            --code-bg: #232730;
-        }
-
-        body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            background-color: var(--bg-dark);
-            color: var(--text-main);
-            margin: 0;
-            line-height: 1.7;
-        }
-
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-
-        /* Секция Истории */
-        .story-section {
-            padding: 80px 20px;
-            text-align: center;
-            border-bottom: 1px solid #333;
-            background: radial-gradient(circle at top, #1a1d24 0%, var(--bg-dark) 100%);
-        }
-
-        .story-title {
-            font-size: 3rem;
-            margin-bottom: 10px;
-            font-weight: 800;
-            letter-spacing: -1px;
-            background: linear-gradient(45deg, #fff, var(--text-muted));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .story-card {
-            background-color: rgba(255, 82, 82, 0.1); /* Легкий красный оттенок */
-            border-left: 4px solid var(--accent);
-            padding: 30px;
-            margin: 40px auto;
-            max-width: 600px;
-            text-align: left;
-            border-radius: 0 12px 12px 0;
-            font-style: italic;
-            font-family: 'Georgia', serif; /* Шрифт для истории */
-            font-size: 1.2rem;
-            color: #ffcccc;
-        }
-
-        /* Техническая часть */
-        .tech-section {
-            padding: 60px 0;
-        }
-
-        h2 {
-            color: var(--text-main);
-            font-size: 2rem;
-            margin-top: 60px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        
-        .step-number {
-            background: var(--accent);
-            color: white;
-            font-size: 0.9rem;
-            padding: 2px 10px;
-            border-radius: 20px;
-            vertical-align: middle;
-        }
-
-        .card-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 30px;
-            margin-top: 30px;
-        }
-
-        .tool-card {
-            background-color: var(--bg-card);
-            border: 1px solid #333;
-            border-radius: 16px;
-            padding: 30px;
-            transition: transform 0.2s;
-        }
-
-        .tool-card:hover {
-            transform: translateY(-5px);
-            border-color: var(--accent);
-        }
-
-        .tool-card h3 {
-            margin-top: 0;
-            color: var(--accent);
-            font-family: monospace;
-            font-size: 1.4rem;
-        }
-
-        code {
-            font-family: 'Fira Code', monospace;
-            background-color: var(--code-bg);
-            padding: 4px 8px;
-            border-radius: 6px;
-            color: #A5B4FC;
-            font-size: 0.9em;
-        }
-
-        pre {
-            background-color: var(--code-bg);
-            padding: 20px;
-            border-radius: 12px;
-            overflow-x: auto;
-            color: #A5B4FC;
-        }
-
-        .highlight {
-            color: #81E6D9;
-            font-weight: bold;
-        }
-
-        .footer {
-            text-align: center;
-            padding: 50px;
-            color: var(--text-muted);
-            font-size: 0.9rem;
-            border-top: 1px solid #333;
-        }
-
-        .btn {
-            display: inline-block;
-            margin-top: 20px;
-            padding: 12px 30px;
-            background-color: white;
-            color: var(--bg-dark);
-            text-decoration: none;
-            font-weight: bold;
-            border-radius: 30px;
-            transition: background 0.2s;
-        }
-        .btn:hover {
-            background-color: var(--accent);
-            color: white;
-        }
-
-    </style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Меню дня — генератор</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+  <style>
+    :root{--ink:#06351c;--red:#781408;--paper:#f9f2e7;--line:#d9cabb;--template:url("./assets/menu-template.png")}
+    *{box-sizing:border-box} body{margin:0;background:#f3efe9;color:#193322;font-family:system-ui,-apple-system,"Segoe UI",sans-serif}
+    .app{max-width:1660px;margin:auto;padding:24px;display:grid;grid-template-columns:350px minmax(600px,1fr);gap:30px;align-items:start}
+    .panel{background:#fff;border:1px solid #e8e0d5;border-radius:18px;padding:22px;box-shadow:0 10px 30px #3526110e;position:sticky;top:18px}
+    h1{margin:0 0 6px;font-size:25px;letter-spacing:-.6px}.lead{margin:0 0 20px;color:#687067;font-size:14px;line-height:1.45}
+    .template{display:flex;align-items:center;gap:8px;margin:0 0 18px;padding:10px;background:#f7f4ef;border-radius:10px;font-size:13px}.template input{max-width:205px}
+    .groups{display:grid;gap:12px}.group{border:1px solid #e9e3da;border-radius:11px;overflow:hidden}.group summary{font-weight:700;cursor:pointer;padding:11px 12px;background:#fbfaf8;list-style:none}.group summary::after{content:'+';float:right;color:#6d776f}.group[open] summary::after{content:'−'}
+    textarea{border:0;border-top:1px solid #eee7df;display:block;width:100%;resize:vertical;min-height:76px;padding:11px 12px;color:#203126;background:#fff;font:15px/1.38 "Roboto Condensed",Arial,sans-serif;outline:none}.hint{padding:0 12px 10px;margin:0;color:#8a8e88;font-size:11px}
+    .buttons{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:18px}.button{border:0;border-radius:10px;padding:12px;cursor:pointer;font-weight:700;font-size:14px}.primary{background:var(--ink);color:white}.secondary{background:#efe9e1;color:#304033}.button:active{transform:translateY(1px)}
+    .stage{display:flex;justify-content:center;padding:0 0 30px}.poster-wrap{width:min(100%,810px);filter:drop-shadow(0 12px 30px #37281222)}
+    #poster{position:relative;aspect-ratio:1054/1492;width:100%;overflow:hidden;background:var(--paper);isolation:isolate}
+    #poster::before{content:"";position:absolute;inset:0;background-image:var(--template);background-size:100% 100%;background-position:center;z-index:-1}
+    .empty-note{position:absolute;inset:0;display:grid;place-items:center;color:#765f4d;background:#f7efe6;font:600 20px system-ui;text-align:center;padding:40px;z-index:-1}
+    .has-template .empty-note{display:none}.menu-box{position:absolute;color:#111;font-family:"Roboto Condensed","Arial Narrow",Arial,sans-serif;font-weight:500;font-size:clamp(15px,2.23vw,29px);line-height:1.25;letter-spacing:.05px;overflow:hidden;overflow-wrap:anywhere}
+    .menu-box ul{margin:0;padding:0;list-style:none}.menu-box li{position:relative;padding-left:.82em;margin-bottom:.28em}.menu-box li::before{content:'▪';position:absolute;left:0;font-size:.88em;top:.04em}.menu-box small{font-size:.75em;color:#454545}
+    .first{left:30.4%;top:15.7%;width:62%;height:10.5%;font-size:clamp(14px,1.88vw,25px);padding:5.5% 4% 1% 4.5%}
+    .garnish{left:6.8%;top:27.5%;width:35%;height:17%;padding:8.5% 4% 2% 5%}.meat{left:49%;top:27.5%;width:45%;height:36%;padding:8.2% 5% 3% 5%}
+    .sauces{left:6.8%;top:46.8%;width:35%;height:16%;padding:8.5% 4% 2% 5%}.salads{left:6.8%;top:66.2%;width:35%;height:15%;padding:8.3% 4% 2% 5%;font-size:clamp(13px,1.72vw,22px)}.drinks{left:49%;top:66.2%;width:45%;height:15%;padding:8.3% 5% 2% 5%}
+    .price{display:inline-block;background:var(--ink);color:#fff;border-radius:4px;padding:0 .17em;margin-left:.35em;line-height:1.05}.price::after{content:' ₽';background:transparent;color:#111;margin-left:.2em}
+    .status{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:#173b24;color:#fff;border-radius:999px;padding:10px 16px;font-size:13px;opacity:0;transition:.2s;pointer-events:none}.status.show{opacity:1}
+    @media(max-width:1050px){.app{grid-template-columns:1fr;padding:14px;gap:18px}.panel{position:static}.poster-wrap{width:min(100%,760px)}.groups{grid-template-columns:1fr 1fr}.template{justify-content:center}}@media(max-width:590px){.groups{grid-template-columns:1fr}.app{padding:10px}.panel{padding:16px}.menu-box{line-height:1.18}.first{padding-top:5%}}
+  </style>
 </head>
 <body>
-
-    <header class="story-section">
-        <div class="container">
-            <div class="story-title">Охота на Азу</div>
-            <p style="color: var(--text-muted);">Инструмент для выявления нечестной игры в конкурсах</p>
-            
-            <div class="story-card">
-                "Жила-была девочка Аза в городе Старый Оскол. Она очень любила подарки и поэтому завела очень много фейков, чтобы загонять их в конкурсы, увеличивая свой шанс на победу..."
-            </div>
-
-            <p>Но любой след в интернете можно найти. Этот проект создан, чтобы автоматизировать поиск подозрительной активности и выявлять сетки ботов.</p>
-            
-            <a href="https://github.com/besladenko/azazel" class="btn">Скачать скрипты</a>
-        </div>
-    </header>
-
-    <div class="container tech-section">
-        
-        <h2><span class="step-number">ШАГ 1</span> Сбор улик</h2>
-        <p>Первый скрипт анализирует страницу «Азы» — пользователя, который массово репостит конкурсы. Он находит оригиналы записей, игнорируя мусор.</p>
-
-        <div class="tool-card">
-            <h3>vk_posts.py</h3>
-            <p>Скрипт сканирует стену подозреваемого из файла <code>user_links.txt</code> и вытаскивает прямые ссылки на розыгрыши.</p>
-            <ul>
-                <li><strong>Вход:</strong> Ссылка на страницу подозреваемого.</li>
-                <li><strong>Процесс:</strong> Поиск репостов и извлечение <code>original_post_id</code>.</li>
-                <li><strong>Выход:</strong> Файл <span class="highlight">reposts.txt</span> со списком конкурсов.</li>
-            </ul>
-        </div>
-
-        <h2><span class="step-number">ШАГ 2</span> Вычисление фейков</h2>
-        <p>Теперь, имея список конкурсов, в которых участвует Аза, мы запускаем второй скрипт. Он проверяет, кто еще лайкает эти же посты с пугающей регулярностью.</p>
-
-        <div class="tool-card">
-            <h3>vk_likes.py</h3>
-            <p>Скрипт проходит по всем собранным ссылкам и считает статистику лайков для каждого участника.</p>
-            <ul>
-                <li><strong>Логика:</strong> Если какой-то "Вася" лайкнул 90% тех же конкурсов, что и Аза — скорее всего, это её фейк.</li>
-                <li><strong>Результат:</strong> Два списка подозреваемых:
-                    <br>📄 <code>lol.txt</code> — Активность > 50%
-                    <br>📄 <code>lol2.txt</code> — Активность > 75% (Гарантированные фейки)
-                </li>
-            </ul>
-        </div>
-
-        <h2>Как запустить расследование</h2>
-        <pre><code># 1. Вставь ссылку на Азу в user_links.txt
-# 2. Собери конкурсы с её стены:
-python vk_posts.py
-
-# 3. Скопируй содержимое reposts.txt в links.txt
-# 4. Вычисли её фейков:
-python vk_likes.py</code></pre>
-
-    </div>
-
-    <footer class="footer">
-        <p>Сделано ради прикола</p>
-    </footer>
-
-</body>
-</html>
+  <main class="app">
+    <section class="panel">
+      <h1>Меню дня</h1><p class="lead">Заполните позиции — предпросмотр меняется сразу. Файлы JPG всегда сохраняются в размере <b>1200 × 1699 px</b>. Открывайте форму через <b>start-menu.bat</b>.</p>
+      <label class="template">Заменить шаблон <input id="templateFile" type="file" accept="image/*"></label>
+      <div class="groups" id="fields">
+        <details class="group" open><summary>Первое</summary><textarea data-section="first" placeholder="Окрошка&#10;Харчо"></textarea><p class="hint">Каждая новая строка — новая позиция.</p></details>
+        <details class="group" open><summary>Гарниры</summary><textarea data-section="garnish" placeholder="Пюре&#10;Гречка&#10;Рис"></textarea><p class="hint">Можно добавить цену через: Блюдо | 120</p></details>
+        <details class="group"><summary>Мясные блюда</summary><textarea data-section="meat" placeholder="Гуляш свиной&#10;Котлета свиная жареная"></textarea><p class="hint">Каждая новая строка — новая позиция.</p></details>
+        <details class="group"><summary>Соусы</summary><textarea data-section="sauces" placeholder="Майонез&#10;Сметана&#10;Кетчуп"></textarea><p class="hint">Каждая новая строка — новая позиция.</p></details>
+        <details class="group"><summary>Салаты</summary><textarea data-section="salads" placeholder="Овощной&#10;Капуста свежая"></textarea><p class="hint">Длинные названия переносятся автоматически.</p></details>
+        <details class="group"><summary>Напитки</summary><textarea data-section="drinks" placeholder="Сок (в ассортименте) | 50&#10;Компот из сухофруктов | 80"></textarea><p class="hint">Цена будет выделена фирменной плашкой. Текст уменьшается автоматически.</p></details>
+      </div>
+      <div class="buttons"><button id="example" class="button secondary">Пример</button><button id="export" class="button primary">Скачать цветной JPG</button><button id="exportBw" class="button secondary">Скачать ч/б JPG</button></div>
+    </section>
+    <section class="stage"><div class="poster-wrap"><div id="poster" class="has-template"><div class="empty-note">Шаблон загружается…</div>
+      <div class="menu-box first" data-output="first"></div><div class="menu-box garnish" data-output="garnish"></div><div class="menu-box meat" data-output="meat"></div><div class="menu-box sauces" data-output="sauces"></div><div class="menu-box salads" data-output="salads"></div><div class="menu-box drinks" data-output="drinks"></div>
+    </div></div></section>
+  </main><div class="status" id="status"></div>
+  <script>
+    const poster=document.querySelector('#poster'), status=document.querySelector('#status');
+    function esc(value){const x=document.createElement('span');x.textContent=value;return x.innerHTML}
+    function renderLine(line){let [name,price]=line.split('|').map(x=>x?.trim());return '<li>'+esc(name||'')+(price?'<span class="price">'+esc(price)+'</span>':'')+'</li>'}
+    function fitText(box){
+      box.style.fontSize='';box.style.lineHeight='';
+      const base=parseFloat(getComputedStyle(box).fontSize),min=Math.max(9,base*.42);let size=base;
+      while((box.scrollHeight>box.clientHeight||box.scrollWidth>box.clientWidth)&&size>min){size-=.5;box.style.fontSize=size+'px';box.style.lineHeight=size<base*.7?'1.12':'1.2'}
+    }
+    function fitAll(){document.querySelectorAll('.menu-box').forEach(fitText)}
+    function update(){document.querySelectorAll('[data-section]').forEach(el=>{const out=document.querySelector('[data-output="'+el.dataset.section+'"]');const lines=el.value.split('\n').map(x=>x.trim()).filter(Boolean);out.innerHTML=lines.length?'<ul>'+lines.map(renderLine).join('')+'</ul>':''});fitAll()}
+    document.querySelector('#fields').addEventListener('input',update);window.addEventListener('resize',fitAll);
+    document.querySelector('#templateFile').addEventListener('change',e=>{const file=e.target.files[0];if(!file)return;const url=URL.createObjectURL(file);poster.style.setProperty('--template','url("'+url+'")');toast('Новый макет загружен');});
+    document.querySelector('#example').addEventListener('click',()=>{const values={first:'Окрошка\nХарчо',garnish:'Пюре\nГречка\nРис\nМакароны',meat:'Гуляш свиной\nКотлета свиная жареная\nПечень свиная жареная с луком\nФиле куриное запечённое с ананасами\nТефтели куриные в томатном соусе',sauces:'Майонез\nСметана\nКетчуп',salads:'Фантазия (ветчина, огурец, грибы, сыр)\nОвощной\nКапуста свежая',drinks:'Сок (в ассортименте) | 50\nКомпот из сухофруктов | 80'};document.querySelectorAll('[data-section]').forEach(x=>x.value=values[x.dataset.section]);update();toast('Пример заполнен')});
+    function toast(t){status.textContent=t;status.classList.add('show');clearTimeout(window.toastTimer);window.toastTimer=setTimeout(()=>status.classList.remove('show'),2200)}
+    async function renderForExport(){
+      if(!window.html2canvas)throw new Error('Библиотека экспорта не загружена');
+      await document.fonts.ready;
+      const targetWidth=1200,displayWidth=poster.getBoundingClientRect().width;
+      return html2canvas(poster,{scale:targetWidth/displayWidth,useCORS:true,backgroundColor:'#f9f2e7'});
+    }
+    function makeMonochrome(canvas){
+      const ctx=canvas.getContext('2d'),image=ctx.getImageData(0,0,canvas.width,canvas.height),pixels=image.data;
+      for(let i=0;i<pixels.length;i+=4){const gray=.299*pixels[i]+.587*pixels[i+1]+.114*pixels[i+2];const printGray=Math.max(0,Math.min(255,(gray-118)*1.7+118));pixels[i]=pixels[i+1]=pixels[i+2]=printGray}
+      ctx.putImageData(image,0,0);return canvas;
+    }
+    function downloadJpg(canvas,name){
+      return new Promise((resolve,reject)=>canvas.toBlob(blob=>{if(!blob){reject(new Error('Не удалось создать файл'));return}const url=URL.createObjectURL(blob),a=document.createElement('a');a.download=name;a.href=url;a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);resolve()},'image/jpeg',1));
+    }
+    async function exportMenu(monochrome){
+      toast(monochrome?'Создаю ч/б JPG…':'Создаю цветной JPG…');
+      try{const canvas=await renderForExport();if(monochrome)makeMonochrome(canvas);await downloadJpg(canvas,'menu-'+new Date().toISOString().slice(0,10)+(monochrome?'-bw':'')+'.jpg');toast(monochrome?'Ч/б JPG сохранён':'Цветной JPG сохранён')}catch(e){console.error(e);toast('Экспорт не сработал: откройте через start-menu.bat')}
+    }
+    document.querySelector('#export').addEventListener('click',()=>exportMenu(false));
+    document.querySelector('#exportBw').addEventListener('click',()=>exportMenu(true));
+  </script>
+</body></html>
