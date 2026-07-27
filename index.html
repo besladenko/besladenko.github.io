@@ -45,7 +45,7 @@
         <details class="group"><summary>Салаты</summary><textarea data-section="salads" placeholder="Овощной&#10;Капуста свежая"></textarea><p class="hint">Длинные названия переносятся автоматически.</p></details>
         <details class="group"><summary>Напитки</summary><textarea data-section="drinks" placeholder="Сок (в ассортименте) | 50&#10;Компот из сухофруктов | 80"></textarea><p class="hint">Цена будет выделена фирменной плашкой. Текст уменьшается автоматически.</p></details>
       </div>
-      <div class="buttons"><button id="example" class="button secondary">Пример</button><button id="export" class="button primary">Скачать цветной JPG</button><button id="exportBw" class="button secondary">Скачать ч/б JPG</button></div>
+      <div class="buttons"><button id="example" type="button" class="button secondary">Пример</button><button id="export" type="button" class="button primary">Скачать цветной JPG</button><button id="exportBw" type="button" class="button secondary">Скачать ч/б JPG</button></div>
     </section>
     <section class="stage"><div class="poster-wrap"><div id="poster" class="has-template"><div class="empty-note">Шаблон загружается…</div>
       <div class="menu-box first" data-output="first"></div><div class="menu-box garnish" data-output="garnish"></div><div class="menu-box meat" data-output="meat"></div><div class="menu-box sauces" data-output="sauces"></div><div class="menu-box salads" data-output="salads"></div><div class="menu-box drinks" data-output="drinks"></div>
@@ -64,7 +64,11 @@
     function update(){document.querySelectorAll('[data-section]').forEach(el=>{const out=document.querySelector('[data-output="'+el.dataset.section+'"]');const lines=el.value.split('\n').map(x=>x.trim()).filter(Boolean);out.innerHTML=lines.length?'<ul>'+lines.map(renderLine).join('')+'</ul>':''});fitAll()}
     document.querySelector('#fields').addEventListener('input',update);window.addEventListener('resize',fitAll);
     document.querySelector('#templateFile').addEventListener('change',e=>{const file=e.target.files[0];if(!file)return;const url=URL.createObjectURL(file);poster.style.setProperty('--template','url("'+url+'")');toast('Новый макет загружен');});
-    document.querySelector('#example').addEventListener('click',()=>{const values={first:'Окрошка\nХарчо',garnish:'Пюре\nГречка\nРис\nМакароны',meat:'Гуляш свиной\nКотлета свиная жареная\nПечень свиная жареная с луком\nФиле куриное запечённое с ананасами\nТефтели куриные в томатном соусе',sauces:'Майонез\nСметана\nКетчуп',salads:'Фантазия (ветчина, огурец, грибы, сыр)\nОвощной\nКапуста свежая',drinks:'Сок (в ассортименте) | 50\nКомпот из сухофруктов | 80'};document.querySelectorAll('[data-section]').forEach(x=>x.value=values[x.dataset.section]);update();toast('Пример заполнен')});
+    function fillExample(){
+      const values={first:'Окрошка\nХарчо',garnish:'Пюре\nГречка\nРис\nМакароны',meat:'Гуляш свиной\nКотлета свиная жареная\nПечень свиная жареная с луком\nФиле куриное запечённое с ананасами\nТефтели куриные в томатном соусе',sauces:'Майонез\nСметана\nКетчуп',salads:'Фантазия (ветчина, огурец, грибы, сыр)\nОвощной\nКапуста свежая',drinks:'Сок (в ассортименте) | 50\nКомпот из сухофруктов | 80'};
+      document.querySelectorAll('[data-section]').forEach(field=>{field.value=values[field.dataset.section]||''});update();toast('Пример заполнен');
+    }
+    document.querySelector('#example').addEventListener('click',fillExample);
     function toast(t){status.textContent=t;status.classList.add('show');clearTimeout(window.toastTimer);window.toastTimer=setTimeout(()=>status.classList.remove('show'),2200)}
     async function renderForExport(){
       if(!window.html2canvas)throw new Error('Библиотека экспорта не загружена');
