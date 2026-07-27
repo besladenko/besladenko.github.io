@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;500;600;700&display=swap" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
-  <style>
+ <style>
     :root{--ink:#06351c;--red:#781408;--paper:#f9f2e7;--line:#d9cabb;--template:url("./assets/menu-template.png")}
     *{box-sizing:border-box} body{margin:0;background:#f3efe9;color:#193322;font-family:system-ui,-apple-system,"Segoe UI",sans-serif}
     .app{max-width:1660px;margin:auto;padding:24px;display:grid;grid-template-columns:350px minmax(600px,1fr);gap:30px;align-items:start}
@@ -24,10 +24,10 @@
     .empty-note{position:absolute;inset:0;display:grid;place-items:center;color:#765f4d;background:#f7efe6;font:600 20px system-ui;text-align:center;padding:40px;z-index:-1}
     .has-template .empty-note{display:none}.menu-box{position:absolute;color:#111;font-family:"Roboto Condensed","Arial Narrow",Arial,sans-serif;font-weight:500;font-size:clamp(15px,2.23vw,29px);line-height:1.25;letter-spacing:.05px;overflow:hidden;overflow-wrap:anywhere}
     .menu-box ul{margin:0;padding:0;list-style:none}.menu-box li{position:relative;padding-left:.82em;margin-bottom:.28em}.menu-box li::before{content:'▪';position:absolute;left:0;font-size:.88em;top:.04em}.menu-box small{font-size:.75em;color:#454545}
-    .first{left:30.4%;top:15.7%;width:62%;height:10.5%;font-size:clamp(14px,1.88vw,25px);padding:5.5% 4% 1% 4.5%}
-    .garnish{left:6.8%;top:27.5%;width:35%;height:17%;padding:8.5% 4% 2% 5%}.meat{left:49%;top:27.5%;width:45%;height:36%;padding:8.2% 5% 3% 5%}
-    .sauces{left:6.8%;top:46.8%;width:35%;height:16%;padding:8.5% 4% 2% 5%}.salads{left:6.8%;top:66.2%;width:35%;height:15%;padding:8.3% 4% 2% 5%;font-size:clamp(13px,1.72vw,22px)}.drinks{left:49%;top:66.2%;width:45%;height:15%;padding:8.3% 5% 2% 5%}
-    .price{display:inline-block;background:var(--ink);color:#fff;border-radius:4px;padding:0 .17em;margin-left:.35em;line-height:1.05}.price::after{content:' ₽';background:transparent;color:#111;margin-left:.2em}
+    .first{left:24.4%;top:17.7%;width:62%;height:10.5%;font-size:clamp(14px,1.88vw,25px);padding:5.5% 4% 1% 4.5%}
+    .garnish{left:0.8%;top:28.5%;width:35%;height:17%;padding:8.5% 4% 2% 5%}.meat{left:45%;top:28.5%;width:45%;height:36%;padding:8.2% 5% 3% 5%}
+    .sauces{left:0.8%;top:47.8%;width:35%;height:16%;padding:8.5% 4% 2% 5%}.salads{left:-0.2%;top:67.2%;width:35%;height:15%;padding:8.3% 4% 2% 5%;font-size:clamp(13px,1.72vw,22px)}.drinks{left:45%;top:67.2%;width:45%;height:15%;padding:8.3% 5% 2% 5%}
+    .price{display:inline-block;background:var(--ink);color:#fff;border-radius:4px;padding:0 .17em;margin-left:.35em;line-height:1.05}.price::after{content:' ₽';background:transparent;color:#fff;margin-left:.2em}
     .status{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:#173b24;color:#fff;border-radius:999px;padding:10px 16px;font-size:13px;opacity:0;transition:.2s;pointer-events:none}.status.show{opacity:1}
     @media(max-width:1050px){.app{grid-template-columns:1fr;padding:14px;gap:18px}.panel{position:static}.poster-wrap{width:min(100%,760px)}.groups{grid-template-columns:1fr 1fr}.template{justify-content:center}}@media(max-width:590px){.groups{grid-template-columns:1fr}.app{padding:10px}.panel{padding:16px}.menu-box{line-height:1.18}.first{padding-top:5%}}
   </style>
