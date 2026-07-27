@@ -19,7 +19,7 @@
     textarea{border:0;border-top:1px solid #eee7df;display:block;width:100%;resize:vertical;min-height:76px;padding:11px 12px;color:#203126;background:#fff;font:15px/1.38 "Roboto Condensed",Arial,sans-serif;outline:none}.hint{padding:0 12px 10px;margin:0;color:#8a8e88;font-size:11px}
     .buttons{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:18px}.button{border:0;border-radius:10px;padding:12px;cursor:pointer;font-weight:700;font-size:14px}.primary{background:var(--ink);color:white}.secondary{background:#efe9e1;color:#304033}.button:active{transform:translateY(1px)}
     .stage{display:flex;justify-content:center;padding:0 0 30px}.poster-wrap{width:min(100%,810px);filter:drop-shadow(0 12px 30px #37281222)}
-    #poster{position:relative;aspect-ratio:1054/1492;width:100%;overflow:hidden;background:var(--paper);isolation:isolate}
+    #poster{position:relative;aspect-ratio:2480/3508;width:100%;overflow:hidden;background:var(--paper);isolation:isolate}
     #poster::before{content:"";position:absolute;inset:0;background-image:var(--template);background-size:100% 100%;background-position:center;z-index:-1}
     .empty-note{position:absolute;inset:0;display:grid;place-items:center;color:#765f4d;background:#f7efe6;font:600 20px system-ui;text-align:center;padding:40px;z-index:-1}
     .has-template .empty-note{display:none}.menu-box{position:absolute;color:#111;font-family:"Roboto Condensed","Arial Narrow",Arial,sans-serif;font-weight:500;font-size:clamp(15px,2.23vw,29px);line-height:1.25;letter-spacing:.05px;overflow:hidden;overflow-wrap:anywhere}
@@ -35,7 +35,7 @@
 <body>
   <main class="app">
     <section class="panel">
-      <h1>Меню дня</h1><p class="lead">Заполните позиции — предпросмотр меняется сразу. Файлы JPG всегда сохраняются в размере <b>1200 × 1699 px</b>. Открывайте форму через <b>start-menu.bat</b>.</p>
+      <h1>Меню дня</h1><p class="lead">Заполните позиции — предпросмотр меняется сразу. Файлы JPG всегда сохраняются в <b>A4: 2480 × 3508 px, 300 DPI</b>. Открывайте форму через <b>start-menu.bat</b>.</p>
       <label class="template">Заменить шаблон <input id="templateFile" type="file" accept="image/*"></label>
       <div class="groups" id="fields">
         <details class="group" open><summary>Первое</summary><textarea data-section="first" placeholder="Окрошка&#10;Харчо"></textarea><p class="hint">Каждая новая строка — новая позиция.</p></details>
@@ -69,7 +69,7 @@
     async function renderForExport(){
       if(!window.html2canvas)throw new Error('Библиотека экспорта не загружена');
       await document.fonts.ready;
-      const targetWidth=1200,displayWidth=poster.getBoundingClientRect().width;
+      const targetWidth=2480,displayWidth=poster.getBoundingClientRect().width;
       return html2canvas(poster,{scale:targetWidth/displayWidth,useCORS:true,backgroundColor:'#f9f2e7'});
     }
     function makeMonochrome(canvas){
@@ -77,8 +77,14 @@
       for(let i=0;i<pixels.length;i+=4){const gray=.299*pixels[i]+.587*pixels[i+1]+.114*pixels[i+2];const printGray=Math.max(0,Math.min(255,(gray-118)*1.7+118));pixels[i]=pixels[i+1]=pixels[i+2]=printGray}
       ctx.putImageData(image,0,0);return canvas;
     }
-    function downloadJpg(canvas,name){
-      return new Promise((resolve,reject)=>canvas.toBlob(blob=>{if(!blob){reject(new Error('Не удалось создать файл'));return}const url=URL.createObjectURL(blob),a=document.createElement('a');a.download=name;a.href=url;a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);resolve()},'image/jpeg',1));
+    async function setPrintDpi(blob){
+      const source=new Uint8Array(await blob.arrayBuffer()),jfif=new Uint8Array([255,224,0,16,74,70,73,70,0,1,1,1,1,44,1,44,0,0]),result=new Uint8Array(source.length+jfif.length);
+      result.set(source.slice(0,2));result.set(jfif,2);result.set(source.slice(2),2+jfif.length);
+      return new Blob([result],{type:'image/jpeg'});
+    }
+    async function downloadJpg(canvas,name){
+      const blob=await new Promise((resolve,reject)=>canvas.toBlob(file=>file?resolve(file):reject(new Error('Не удалось создать файл')),'image/jpeg',1));
+      const printBlob=await setPrintDpi(blob),url=URL.createObjectURL(printBlob),a=document.createElement('a');a.download=name;a.href=url;a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);
     }
     async function exportMenu(monochrome){
       toast(monochrome?'Создаю ч/б JPG…':'Создаю цветной JPG…');
